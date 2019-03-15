@@ -78,6 +78,10 @@ Deve usar **exclusivamente** os dados das seguintes rotas da Web API last.fm:
 Os resultados da API RESTFul podem ser convertidos através da biblioteca Gson
 para instâncias de classes pré-definidas (DTOs).
 
+**NOTA:** no caso de propriedades em JSON que contenham carácters que sejam 
+inválidos em Java poderá usar a anotação Gson `@SerializedName` sobre o respectivo
+campo com o nome da propriedade Json, e.g. `@SerializedName("#text")`.
+
 ## 3. **jingle-lazy** `JingleService`
 
 Implemente os métodos de `JingleService` de modo a passar os testes unitários de
@@ -108,7 +112,17 @@ A sequência resultante deve guardar em memória os elementos que vão sendo
 obtidos por um iterador.
 O método `next()` retorna sempre os elementos que já estejam guardados em
 memória e só obtém um novo elemento caso este não esteja _cached_.
+Exemplo de utilização do método `cache()` sobre uma sequência infinita:
+
+```java
+Random r = new Random();
+Iterable<Integer> nrs = generate(() -> r.nextInt(100));
+nrs = cache(nrs);
+Object[] expected = toArray(limit(nrs, 10));
+Object[] actual = toArray(limit(nrs, 10));
+assertArrayEquals(expected, actual);
+```
 
 Verifique o correcto funcionamento desta função confirmando que não são feitos
-novos pedidos HTTP ao percorrer mais que uma vez a mesma sequência retornada por
-`JingerService`.
+novos pedidos HTTP no teste `searchHiperAndCountAllResults` ao percorrer mais
+que uma vez a mesma sequência retornada por `JingerService`.
