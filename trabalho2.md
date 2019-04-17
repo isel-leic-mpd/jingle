@@ -58,9 +58,10 @@ Abordagem:
    retorna o ranking completo de **todas** as músicas num país.
 
 4. Implemente em `JingleService` o método `getTracksRank(String artistMbId,
-   String country)` que faz o _merge_ das sequências dadas por `
-   getTracks(String artistMbid)` e `getTopTracks(String country)`. Caso uma
-   música de `artistMbid` não conste no ranking dado por `getTopTracks` então
-   essa música fica com o ranking 0. Implemente esta funcionalidade com auxilio
-   do método `merge` da alínea 1 ou uma adaptação desse método.
+   String country)` que faz o _merge_ das sequências dadas por
+   `getTracks(String artistMbid)` e o **top 100** de um país dado por
+   `getTopTracks(String country)`.
+   Caso uma música de `artistMbid` não conste no ranking dado por `getTopTracks`
+   então essa música fica com o ranking 0. Implemente esta funcionalidade com
+   auxilio do método `merge` da alínea 1 ou uma adaptação desse método.
 
